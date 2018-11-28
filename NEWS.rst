@@ -6,6 +6,8 @@ Internal changes
 
 * 23799: Added custom UUID url converter, stringifying UUID parameters in
   order to standardise our use of UUIDs internally.
+* 25396: Added backend validation API, for validating individual fields from
+  the front-end.
 
 Version 0.12.0, 2018-11-16
 ==========================
