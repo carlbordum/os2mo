@@ -103,7 +103,9 @@ def _get_active_validity(reg: dict) -> typing.Mapping[str, str]:
     }
 
 
-def is_date_range_in_org_unit_range(org_unit_uuid, valid_from, valid_to):
+def is_date_range_in_org_unit_range(org_unit_uuid: str,
+                                    valid_from: datetime.datetime,
+                                    valid_to: datetime.datetime):
     # query for the full range of effects; otherwise,
     # _get_active_validity() won't return any useful data for time
     # intervals predating the creation of the unit
@@ -151,7 +153,8 @@ def is_distinct_responsibility(
 
 
 def is_date_range_in_employee_range(employee_obj: dict,
-                                    valid_from, valid_to):
+                                    valid_from: datetime.datetime,
+                                    valid_to: datetime.datetime):
     scope = lora.Connector(
         virkningfra=util.to_lora_time(valid_from),
         virkningtil=util.to_lora_time(valid_to)
@@ -337,7 +340,7 @@ def does_employee_have_active_engagement(employee_uuid, valid_from, valid_to):
 
 
 def does_employee_with_cpr_already_exist(cpr, valid_from, valid_to, org_uuid,
-                                         user_id):
+                                         user_id=None):
     """
     Check whether we're able to find an existing user with the given CPR,
     and raise a validation error accordingly
