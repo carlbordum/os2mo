@@ -26,11 +26,13 @@ Internal changes
 
 Bug fixes
 ---------
-* #25405: Submit button for create new and edit modals for organisation 
+
+* #25405: Submit button for create new and edit modals for organisation
   units and employees is no longer disabled if the form is invalid
 * #25028: Timeachine is working again.
 * #25579: Address race condition when quickly switching between units
   in the tree view at the left.
+* #25671: Organisation is now properly set when creating new employee
 * #25186: Hidden person input for create employee manager.
 * #25690: Ignore spacing in address type input field.
 * #26368: Validation no longer prevents adding an association if it
