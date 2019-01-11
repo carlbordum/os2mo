@@ -11,6 +11,8 @@ New features
 * #25100: It is now possible to optionally also terminate associated manager
   roles when terminating an employee.
 * #24702: Allow marking organisational units as related to each other.
+* #24130: The configuration module now has a public api, allowing for dynamic
+  changes of the configuration options.
 
 Internal changes
 ----------------
