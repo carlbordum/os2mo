@@ -38,7 +38,5 @@ blueprints = (
     org.blueprint,
     orgunit.blueprint,
     related.blueprint,
-    exports.blueprint,
-    integration_data.blueprint,
     configuration_options.blueprint,
 )
