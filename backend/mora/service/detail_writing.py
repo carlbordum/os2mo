@@ -913,3 +913,13 @@ def edit():
         flask.jsonify(handle_requests(reqs, handlers.RequestType.EDIT)),
         200
     )
+
+
+@blueprint.route('/details/terminate', methods=['POST'])
+@util.restrictargs('force')
+def terminate():
+    reqs = flask.request.get_json()
+    return (
+        flask.jsonify(handle_requests(reqs, handlers.RequestType.TERMINATE)),
+        200
+    )

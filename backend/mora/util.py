@@ -177,14 +177,22 @@ def to_iso_date(s, is_end: bool=False):
         ...
         mora.exceptions.HTTPException: 400 Bad Request: \
         cannot parse '2000-20-20'
+        >>> to_iso_date(POSITIVE_INFINITY, is_end=True)
+        >>> to_iso_date(NEGATIVE_INFINITY)
 
     '''
     dt = parsedatetime(s)
 
-    if is_end and dt == POSITIVE_INFINITY:
-        return None
-    elif not is_end and dt == NEGATIVE_INFINITY:
-        return None
+    if dt == POSITIVE_INFINITY:
+        if is_end:
+            return None
+        else:
+            raise ValueError('fuck no')
+    elif dt == NEGATIVE_INFINITY:
+        if not is_end:
+            return None
+        else:
+            raise ValueError('fuck no')
 
     if dt.time() != datetime.time.min:
         dt = datetime.datetime.combine(dt, datetime.time.min)
@@ -676,7 +684,7 @@ def get_valid_from(obj, fallback=None) -> datetime.datetime:
         exceptions.ErrorCodes.V_MISSING_START_DATE(obj=obj)
 
 
-def get_valid_to(obj, fallback=None) -> datetime.datetime:
+def get_valid_to(obj, fallback=None, required=False) -> datetime.datetime:
     '''Extract the end of the validity interval in ``obj``, or otherwise
     ``fallback``, and return it as a timestamp delimiting the
     corresponding interval. If neither specifies an end, assume a
@@ -730,9 +738,15 @@ def get_valid_to(obj, fallback=None) -> datetime.datetime:
             return dt + ONE_DAY
 
     if fallback is not None:
-        return get_valid_to(fallback)
-    else:
+        return get_valid_to(fallback, required=required)
+    elif not required:
         return POSITIVE_INFINITY
+    else:
+        exceptions.ErrorCodes.V_MISSING_REQUIRED_VALUE(
+            message='Missing {}'.format(mapping.VALIDITY),
+            key=mapping.VALIDITY,
+            obj=obj,
+        )
 
 
 def get_validities(obj, fallback=None) -> typing.Tuple[
